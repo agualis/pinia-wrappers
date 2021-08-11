@@ -10,14 +10,31 @@
 
 <script>
 
-import { mapUserState, mapUserActions } from './stores/user-store'
+import { mapState } from 'pinia'
+import { mapUserState, mapUserActions, useUserStore } from './stores/user-store'
+
+/**
+ * 
+ * @template {(string)[]} T 
+ * @param {T} v
+ * @returns {T}
+ */
+ export function toConstTuple(...v) {
+  return v;
+}
+
+const tuple = toConstTuple('loggedIn');
 
 export default {
   name: 'App',
   computed: {
-    ...mapUserState({loggedIn: 'loggedIn'}),
+    ...mapState(useUserStore, tuple), // Does not work (loggedIn has any type)
+    ...mapState(useUserStore, {loggedIn2: 'loggedIn'}), // Works (loggedIn2 has boolean type)
+    ...mapUserState({loggedIn3: 'loggedIn'}), // Works (loggedIn3 has any type)
     userState() {
-      return this.loggedIn ? 'LOGGED IN' : 'NOT LOGGED IN';
+      console.log(this.loggedIn);
+      console.log(this.loggedIn2); 
+      return this.loggedIn3 ? 'LOGGED IN' : 'NOT LOGGED IN';
     },
   },
   methods: {

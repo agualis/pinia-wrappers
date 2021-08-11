@@ -17,5 +17,11 @@ export const useUserStore = defineStore({
   }
 })
 
-export const mapUserState = (args) => mapState(useUserStore, args);
+/**
+ * @function
+ * @template T
+ * @param {T} mapper
+ */
+export const mapUserState = (mapper) => mapState(useUserStore, mapper);
+
 export const mapUserActions = (args) => mapActions(useUserStore, args);
