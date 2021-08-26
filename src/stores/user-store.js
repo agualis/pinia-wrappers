@@ -8,6 +8,11 @@ export const useUserStore = defineStore({
       name: 'Guest',
     }
   },
+  getters: {
+    loggedInGetter(state) {
+      return state.loggedIn;
+    }
+  },
   actions: {
     login() {
       this.loggedIn = true;
@@ -19,6 +24,18 @@ export const useUserStore = defineStore({
 })
 
 /**
- * @type {import('./user-store').mapUserWithArray} 
+ * @type {import('./types').mapUserWithArray} 
  */
 export const mapUserWithArray = (keys) => mapState(useUserStore, keys);
+
+/**
+ * @type {import('./types').mapUserWithObject} 
+ */
+export const mapUserWithObject = (keyMapper) => mapState(useUserStore, keyMapper);
+
+/**
+ * @type {import('./types').mapUserWithRecordWitHardCodedKeyMapper} 
+ */
+export const mapUserWithRecordWitHardCodedKeyMapper = () => mapState(useUserStore, {loggedIn3:'loggedIn'});
+
+

@@ -36,6 +36,11 @@ type InferredMapUserState = InferredMapUserStateWithKeys | InferredMapUserStateW
 type InferredMapUserReturn = inferReturn<UserStoreType>;
 
 
+export type mapFani<D> = D extends StoreDefinition<infer Id, infer S, infer G, infer A> ? 
+(keys: Array<keyof S | keyof G>) => _MapStateReturn<S, G>
+: never;
+
+export type mapUserFani = mapFani<UserStoreType>;
 
 
 export type mapStateWithArray<D> = D extends StoreDefinition<infer Id, infer S, infer G, infer A> ? 
@@ -59,18 +64,3 @@ export type mapUserWithRecordWitHardCodedKeyMapper = mapUserWithHardcodedKeyMapp
 export type GenericKeyMapper<D> = D extends StoreDefinition<infer Id, infer S, infer G, infer A> ? 
 Record<string, keyof S | keyof G | ((store: Store<Id, S, G, A>) => any)> :
 never; 
-
-
- // BEGIN: Inferring params and return types with array key mapper
-type inferArrayMapper<D> = D extends StoreDefinition<infer Id, infer S, infer G, infer A> ? 
-Array<keyof S | keyof G>
-: never;
-
-type InferredUserArrayMapper = inferArrayMapper<UserStoreType>;
-
-type inferMapStateArrayReturn<D> = D extends StoreDefinition<infer Id, infer S, infer G, infer A> ?
-_MapStateReturn<S, G> 
-: never;
-
-type InferredMapUserArrayReturn = inferMapStateArrayReturn<UserStoreType>;
- // END: Inferring params and return types with array key mapper
