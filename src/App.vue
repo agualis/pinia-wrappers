@@ -9,28 +9,14 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia/dist/src';
 
-import { mapState } from 'pinia'
-import { mapUserState, mapUserActions, useUserStore } from './stores/user-store'
-
-/**
- * 
- * @template {(string)[]} T 
- * @param {T} v
- * @returns {T}
- */
- export function toConstTuple(...v) {
-  return v;
-}
-
-const tuple = toConstTuple('loggedIn');
+import { mapUserWithArray, useUserStore } from './stores/user-store'
 
 export default {
   name: 'App',
   computed: {
-    ...mapState(useUserStore, tuple), // Does not work (loggedIn has any type)
-    ...mapState(useUserStore, {loggedIn2: 'loggedIn'}), // Works (loggedIn2 has boolean type)
-    ...mapUserState({loggedIn3: 'loggedIn'}), // Works (loggedIn3 has any type)
+    ...mapUserWithArray(['loggedIn']), // Works but maps all getters and state props 
     userState() {
       console.log(this.loggedIn);
       console.log(this.loggedIn2); 
@@ -38,7 +24,7 @@ export default {
     },
   },
   methods: {
-    ...mapUserActions({
+    ...mapActions(useUserStore, {
       login: 'login',
       logout: 'logout',
     }),

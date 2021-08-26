@@ -1,10 +1,11 @@
-import { defineStore, mapState, mapActions } from 'pinia'
+import { defineStore, mapState } from 'pinia'
 
 export const useUserStore = defineStore({
   id: 'user',
   state() {
     return {
       loggedIn: false,
+      name: 'Guest',
     }
   },
   actions: {
@@ -18,10 +19,6 @@ export const useUserStore = defineStore({
 })
 
 /**
- * @function
- * @template T
- * @param {T} mapper
+ * @type {import('./user-store').mapUserWithArray} 
  */
-export const mapUserState = (mapper) => mapState(useUserStore, mapper);
-
-export const mapUserActions = (args) => mapActions(useUserStore, args);
+export const mapUserWithArray = (keys) => mapState(useUserStore, keys);
