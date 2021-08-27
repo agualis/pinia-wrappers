@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia/dist/src';
-
-import { mapUserWithArray, mapUserWithRecord, mapUserWithWrapper, mapUserWithRecordWitHardCodedKeyMapper, useUserStore } from './stores/user-store'
+import { mapActions } from 'pinia';
+// import { mapUserWithArray, mapUserWithRecord, mapUserWithWrapper, mapUserWithRecordWitHardCodedKeyMapper, useUserStore } from './stores/user-store'
+import { mapUserWithRecord, useUserStore } from './stores/user-store'
 
 export default {
   name: 'App',
