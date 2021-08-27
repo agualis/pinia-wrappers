@@ -29,13 +29,24 @@ export const useUserStore = defineStore({
 export const mapUserWithArray = (keys) => mapState(useUserStore, keys);
 
 /**
- * @type {import('./types').mapUserWithObject} 
+ * @type {import('./types').mapUserWithRecord} 
  */
-export const mapUserWithObject = (keyMapper) => mapState(useUserStore, keyMapper);
+export const mapUserWithRecord = (keyMapper) => mapState(useUserStore, keyMapper);
 
 /**
  * @type {import('./types').mapUserWithRecordWitHardCodedKeyMapper} 
  */
 export const mapUserWithRecordWitHardCodedKeyMapper = () => mapState(useUserStore, {loggedIn3:'loggedIn'});
 
+/**
+ * @type {import('./types').wrapMapState} 
+ */
+export const wrapMapState = (useStore) => (keyMapper) => mapState(useStore, keyMapper);
+
+/**
+ * 
+ * @param {import('./types').UserKeyMapper} keyMapper 
+ * @returns 
+ */
+export const mapUserWithWrapper = (keyMapper) => wrapMapState(useUserStore)(keyMapper);
 

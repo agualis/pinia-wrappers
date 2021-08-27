@@ -11,17 +11,20 @@
 <script>
 import { mapActions } from 'pinia/dist/src';
 
-import { mapUserWithArray, mapUserWithObject, mapUserWithRecordWitHardCodedKeyMapper, useUserStore } from './stores/user-store'
+import { mapUserWithArray, mapUserWithRecord, mapUserWithWrapper, mapUserWithRecordWitHardCodedKeyMapper, useUserStore } from './stores/user-store'
 
 export default {
   name: 'App',
   computed: {
-    // ...mapUserWithArray(['loggedIn']), // Types work but maps all getters and state props 
-    // ...mapUserWithObject({loggedIn2: 'loggedIn'}), // Types do not work
-    ...mapUserWithRecordWitHardCodedKeyMapper(), // Hardcoded loggedIn3 boolean works
+    //  ...mapUserWithArray(['loggedIn']), // Types work but maps all getters and state props 
+    ...mapUserWithRecord({loggedIn2: 'loggedIn'}), // Types do not work
+    //  ...mapUserWithRecordWitHardCodedKeyMapper(), // Hardcoded loggedIn3 boolean works
+    // ...mapUserWithWrapper({loggedIn2: 'loggedIn4'}), // Types do not work
     userState() {
       console.log(this.loggedIn);
+      console.log(this.loggedIn2);
       console.log(this.loggedIn3);
+      console.log(this.loggedIn4);
       return this.loggedIn2 ? 'LOGGED IN' : 'NOT LOGGED IN';
     },
   },
