@@ -9,17 +9,15 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia';
-// import { mapUserWithArray, mapUserWithRecord, mapUserWithWrapper, mapUserWithRecordWitHardCodedKeyMapper, useUserStore } from './stores/user-store'
-import { mapUserWithRecord, useUserStore } from './stores/user-store'
+import { mapActions, mapState } from 'pinia';
+import { mapUserWithRecord, useUserStore, mapUserWithArray } from './stores/user-store'
 
 export default {
   name: 'App',
   computed: {
-    //  ...mapUserWithArray(['loggedIn']), // Types work but maps all getters and state props 
-    ...mapUserWithRecord({loggedIn2: 'loggedIn'}), // Types do not work
-    //  ...mapUserWithRecordWitHardCodedKeyMapper(), // Hardcoded loggedIn3 boolean works
-    // ...mapUserWithWrapper({loggedIn2: 'loggedIn4'}), // Types do not work
+    // ...mapUserWithArray(['loggedIn']), // Types work but maps all getters and state props 
+    // ...mapUserWithRecord({loggedIn2: 'loggedIn'}), // loggedIn2 is found but resolved with type any instead of boolean
+   ...mapState(useUserStore, {loggedIn2: 'loggedIn'}), // Types do not work
     userState() {
       console.log(this.loggedIn);
       console.log(this.loggedIn2);
